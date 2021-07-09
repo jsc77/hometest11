@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="GET" action="{% url 'result' %}">
+        <table>
+            <tr>
+                <td align="right">ブドウ糖</td>
+                <td align="left"><input type="text" name="n1"></td>
+            </tr>
+            <tr>
+                <td align="right">血圧</td>
+                <td align="left"><input type="text" name="n2"></td>
+            </tr>
+            <tr>
+                <td align="right">肌の厚さ</td>
+                <td align="left"><input type="text" name="n3"></td>
+            </tr>
+            <tr>
+                <td align="right">インシュリン</td>
+                <td align="left"><input type="text" name="n4"></td>
+            </tr>
+            <tr>
+                <td align="right">BMI</td>
+                <td align="left"><input type="text" name="n5"></td>
+            </tr>
+            <tr>
+                <td align="right">糖尿病血統関数</td>
+                <td align="left"><input type="text" name="n6"></td>
+            </tr>
+            <tr>
+                <td align="right">年齢</td>
+                <td align="left"><input type="text" name="n7"></td>
+            </tr>
+        </table>
+        <input type="submit">
+    </form>
+    結果：{{result}}
+</body>
+</html>

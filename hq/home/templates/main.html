@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ba4898c0f7.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+<style>
+.cards {
+	margin-top: 1rem;
+	padding: 10px;
+	display: grid;
+	grid-gap: 20px;
+}
+@media (min-width: 1025px) {
+	.wrapper {
+		width: 960px;
+		margin: auto;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+	}
+	.wrapper .cards {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+}
+ * {
+	padding: auto;
+	margin: 0;
+	font-family: 'Kosugi Maru', sans-serif;
+	user-select: none;
+	cursor: default;
+}
+ html {
+	 font-size: 62.5%;
+	 color: #c1c6cb;
+	 background-color: #15202e;
+}
+ body {
+	 padding: 20px 50px;
+}
+ body::-webkit-scrollbar {
+	 width: 5px;
+}
+ ::-webkit-scrollbar-track {
+	 background: #110d0d;
+}
+ ::-webkit-scrollbar-thumb {
+	 background: #888;
+}
+ .dashboard {
+	 display: block;
+	 max-width: 1024px;
+	 margin: 0 auto;
+}
+ .dashboard-header {
+	 display: flex;
+	 align-items: center;
+	 text-transform: uppercase;
+}
+ .dashboard-title {
+	 flex: 1;
+	 font-size: 2.5rem;
+}
+ .dashboard-clock {
+	 display: flex;
+	 align-items: center;
+}
+ .dashboard-clock-digital {
+	 font-weight: bold;
+	 font-size: 2.5rem;
+}
+ .dashboard-clock-binary {
+	 margin-left: 8px;
+	 border-collapse: separate;
+}
+ .dashboard-clock-binary td {
+	 height: 0.4rem;
+	 width: 0.4rem;
+	 background-color: rgba(255, 255, 255, .2);
+	 border-radius: 50%;
+}
+ .dashboard-clock-binary .num1 {
+	 background-color: #2eb35a;
+}
+ .server {
+	 display: flex;
+	 align-items: center;
+	 padding: 10px 0;
+	 border: 1px solid rgba(255, 255, 255, .1);
+	 border-radius: 4px;
+	 white-space: nowrap;
+	 background-color: rgba(77, 175, 124, 0.6);
+}
+ .server-icon {
+	 display: inline-block;
+	 font-size: 2.5rem;
+	 margin: 0 2rem;
+}
+ .server-details {
+	 flex: 1;
+	 display: block;
+	 list-style: none;
+	 margin: 0;
+	 padding: 0;
+}
+ .server-details li {
+	 display: block;
+	 font-size: 1.2rem;
+	 line-height: 1.5;
+	 color: #7e8794;
+}
+ .server-details li:last-child .data {
+	 font-weight: normal;
+	 color: rgba(230, 245, 255, .32);
+}
+ .server-details .data {
+	 display: block;
+	 margin: -1.7rem 0 0 0;
+	 padding: 0 1rem 0 0;
+	 font-weight: 600;
+	 text-align: right;
+	 color: #c1c6cb;
+}
+ .server-details .signal {
+	 color: #2eb35a;
+}
+ .server-details .signal::before {
+	 content: '';
+	 display: inline-block;
+	 width: 0.6rem;
+	 height: 0.6rem;
+	 background-color: currentColor;
+	 border-radius: 50%;
+	 margin-right: 0.5rem;
+	 margin-top: -0.2rem;
+	 vertical-align: middle;
+}
+ .server-list {
+	 display: grid;
+	 grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+	 grid-gap: 2rem;
+}
+ .server.has-failed {
+	 box-shadow: 0px 4px 15px rgba(0, 0, 0, .2);
+	 border-color: #d22c32;
+	 animation: alertblink 2s ease-in-out infinite;
+}
+ .server.has-failed .server-icon, .server.has-failed .signal {
+	 color: #d22c32;
+}
+ .server.has-failed:hover {
+	 background-color: rgba(210, 44, 50, .2);
+	 animation: none;
+}
+ @keyframes alertblink {
+	 0% {
+		 background: rgba(210, 44, 50, 0);
+	}
+	 50% {
+		 background: rgba(210, 44, 50, 0.2);
+	}
+	 100% {
+		 background: rgba(210, 44, 50, 0);
+	}
+}
+ .server.has-done {
+	 box-shadow: 0px 4px 15px rgba(0, 0, 0, .2);
+	 border-color: #d22c32;
+     background-color: rgba(210, 44, 50, .6);
+
+}
+ .server.has-done .server-icon, .server.has-done .signal {
+	 color: #d22c32;
+}
+img {
+    width: 30px;
+}
+
+</style>
+<form action="/simple">
+	<button class="btn">ok</button>
+</form>
+<div class="wrapper row">
+	<div class="col-12">
+    	<h3>夜間起床予測システム
+    	    <img src="https://img.icons8.com/ios-filled/50/000000/blood-sample--v1.png" style="background-color:red;"/>：高血圧
+    	    <img src="https://img.icons8.com/color/48/000000/salt.png"/>：糖尿病
+    	    <img src="https://img.icons8.com/color/48/000000/wheelchair.png"/>：足不便
+    	    <img src="https://img.icons8.com/emoji/48/000000/white-cane.png"/>：目不便
+    	<a href="https://icons8.com/icon/L6abXhMYEXGP/salt">icon by Icons8</a></h3>
+	</div>
+  <div class="cards col-sm-4">
+    <picture>
+      <div class="server {% if a == '起きる' %}has-done{% elif a == '可能性あり' %}has-failed{% endif %}" style="height: 100px; width: 100%;">
+          <div class="server-icon">１番</div>
+          <ul class="server-details">
+              <li>お名前:<span class="data">田中さん</span></li>
+              <li>状態:<span class="data" style="color:navy;">{{ a }}</span></li>
+              <li>特徴:<span class="data">
+                  <img src="https://img.icons8.com/ios-filled/50/000000/blood-sample--v1.png" style="background-color:red;"/>
+                  <img src="https://img.icons8.com/color/48/000000/salt.png"/>
+                  <img src="https://img.icons8.com/color/48/000000/wheelchair.png"/>
+                  <img src="https://img.icons8.com/emoji/48/000000/white-cane.png"/>
+              </span>
+              </li>
+              <li>年齢・性別:<span class="data">84歳/男性</span></li>
+          </ul>
+      </div>
+    </picture>
+    <picture>
+        <div class="server {% if b == '起きる' %}has-done{% elif b == '可能性あり' %}has-failed{% endif %}" style="height: 100px;">
+            <div class="server-icon">2番</div>
+            <ul class="server-details">
+                <li>お名前:<span class="data">佐藤さん</span></li>
+                <li>状態:<span class="data" style="color:navy;">{{ b }}</span></li>
+                <li>特徴:<span class="data">
+                    <img src="https://img.icons8.com/color/48/000000/salt.png"/>
+                    <img src="https://img.icons8.com/color/48/000000/wheelchair.png"/>
+                    <img src="https://img.icons8.com/emoji/48/000000/white-cane.png"/>
+                </span>
+                </li>
+                <li>年齢・性別:<span class="data">78歳/女性</span></li>
+            </ul>
+        </div>
+    </picture>
+    <picture>
+    	<div class="server {% if a == '起きる' %}has-done{% elif a == '可能性あり' %}has-failed{% endif %}" style="height: 100px;">
+    	    <div class="server-icon">3番</div>
+    	    <ul class="server-details">
+    	        <li>お名前:<span class="data">加藤さん</span></li>
+    	        <li>状態:<span class="data" style="color:navy;">{{ b }}</span></li>
+    	        <li>特徴:<span class="data">
+    	            <img src="https://img.icons8.com/color/48/000000/wheelchair.png"/>
+    	            <img src="https://img.icons8.com/emoji/48/000000/white-cane.png"/>
+    	        </span>
+    	        </li>
+    	        <li>年齢・性別:<span class="data">88歳/女性</span></li>
+    	    </ul>
+    	</div>
+    </picture>
+    <picture>
+    	<div class="server {% if c == '起きる' %}has-done{% elif c == '可能性あり' %}has-failed{% endif %}" style="height: 100px;">
+    	    <div class="server-icon">4番</div>
+    	    <ul class="server-details">
+    	        <li>お名前:<span class="data">伊藤さん</span></li>
+    	        <li>状態:<span class="data" style="color:navy;">{{ b }}</span></li>
+    	        <li>特徴:<span class="data">
+    	            <img src="https://img.icons8.com/color/48/000000/wheelchair.png"/>
+    	        </span>
+    	        </li>
+    	        <li>年齢・性別:<span class="data">88歳/女性</span></li>
+    	    </ul>
+    	</div>
+    </picture>
+    <picture>
+    	<div class="server {% if b == '起きる' %}has-done{% elif b == '可能性あり' %}has-failed{% endif %}" style="height: 100px;">
+    	    <div class="server-icon">5番</div>
+    	    <ul class="server-details">
+    	        <li>お名前:<span class="data">武田さん</span></li>
+    	        <li>状態:<span class="data" style="color:navy;">{{ b }}</span></li>
+    	        <li>特徴:<span class="data">
+                	<img src="https://img.icons8.com/ios-filled/50/000000/blood-sample--v1.png" style="background-color:red;"/>
+    	            <img src="https://img.icons8.com/color/48/000000/wheelchair.png"/>
+    	            <img src="https://img.icons8.com/emoji/48/000000/white-cane.png"/>
+    	        </span>
+    	        </li>
+    	        <li>年齢・性別:<span class="data">88歳/女性</span></li>
+    	    </ul>
+    	</div>
+    </picture>
+    <picture>
+		空室
+    </picture>
+</div>
+    {% if chart %}
+    {% endif %}
+    
+    {% for sale in sales %}
+        {{ sale }}
+    {% endfor %}
+    {{ report }}
+<script>
+function startRefresh() {
+    $.get('', function(data) {
+        $(document.body).html(data);    
+    });
+}
+$(function() {
+    setTimeout(startRefresh,1000);
+});
+</script>
+</body>
+</html>
